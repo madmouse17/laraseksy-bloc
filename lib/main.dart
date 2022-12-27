@@ -21,6 +21,32 @@ class MyApp extends StatelessWidget {
             textTheme: GoogleFonts.poppinsTextTheme(
               Theme.of(context).textTheme,
             ),
+            inputDecorationTheme: InputDecorationTheme(
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(color: Colors.white, width: 0.0),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(color: Colors.white, width: 0.0),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(color: Colors.white, width: 0.0),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(color: Colors.white, width: 0.0),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(color: Colors.white, width: 0.0),
+                ),
+                fillColor: Colors.white,
+                filled: true),
             primarySwatch: colorCustom,
             backgroundColor: Pallete.bgolor),
         initialRoute: Pages.Initial,
