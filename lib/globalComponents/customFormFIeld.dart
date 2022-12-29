@@ -9,13 +9,13 @@ class CustomTextFormField extends StatelessWidget {
       {Key? key,
       required this.label,
       required this.controller,
-      this.obscureText = false,
+      this.obscureText,
       this.textInputType,
       this.suffixIcon})
       : super(key: key);
   final String label;
   final TextEditingController controller;
-  final bool obscureText;
+  final bool? obscureText;
   final Widget? suffixIcon;
   final TextInputType? textInputType;
   @override
@@ -38,7 +38,7 @@ class CustomTextFormField extends StatelessWidget {
         ),
         TextFormField(
           controller: controller,
-          obscureText: obscureText,
+          obscureText: obscureText ?? false,
           keyboardType: textInputType,
           decoration: InputDecoration(suffixIcon: suffixIcon),
         ),

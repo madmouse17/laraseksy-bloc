@@ -65,19 +65,33 @@ class BoxLogin extends StatelessWidget {
                         ),
                         BlocBuilder<LoginBloc, LoginState>(
                           builder: (context, state) {
-                            return CustomTextFormField(
-                              label: 'Kata Sandi :',
-                              controller: sandiText,
-                              obscureText: state.visible,
-                              suffixIcon: IconButton(
-                                  onPressed: () {
-                                    loginB.add(SandiVisibleEvent());
-                                    log(state.visible.toString());
-                                  },
-                                  icon: state.visible
-                                      ? Icon(Icons.visibility_off)
-                                      : Icon(Icons.visibility)),
+                            return Column(
+                              children: [
+                                Text(state.visible.toString()),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      loginB.add(SandiVisibleEvent());
+                                    },
+                                    child: Text('klik'))
+                              ],
                             );
+
+                            //  CustomTextFormField(
+                            //   label: 'Kata Sandi :',
+                            //   controller: sandiText,
+                            //   obscureText: state.visible ? true : false,
+                            //   suffixIcon: IconButton(
+                            //       onPressed: () {
+                            //         loginB.add(SandiVisibleEvent());
+                            //         state.visible
+                            //             ? print('oke')
+                            //             : print('else');
+                            //         log(state.visible.toString());
+                            //       },
+                            //       icon: state.visible
+                            //           ? Icon(Icons.visibility_off)
+                            //           : Icon(Icons.visibility)),
+                            // );
                           },
                         ),
                       ],
