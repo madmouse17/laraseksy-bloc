@@ -9,19 +9,32 @@ import 'package:laraseksy_bloc/utils/imageName.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:sizer/sizer.dart';
 
-class BoxLogin extends StatelessWidget {
+class BoxLogin extends StatefulWidget {
   BoxLogin({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<BoxLogin> createState() => _BoxLoginState();
+}
+
+class _BoxLoginState extends State<BoxLogin> {
   final RoundedLoadingButtonController btnMasuk =
       RoundedLoadingButtonController();
+
   final TextEditingController nisText = TextEditingController();
+
   final TextEditingController sandiText = TextEditingController();
+  LoginBloc? loginB;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loginB = BlocProvider.of<LoginBloc>(context);
+  }
 
   @override
   Widget build(BuildContext context) {
-    LoginBloc loginB = BlocProvider.of<LoginBloc>(context);
     return Flexible(
       flex: 3,
       child: Container(
@@ -65,12 +78,13 @@ class BoxLogin extends StatelessWidget {
                         ),
                         BlocBuilder<LoginBloc, LoginState>(
                           builder: (context, state) {
+                            print('widget' + state.visible.toString());
                             return Column(
                               children: [
                                 Text(state.visible.toString()),
                                 ElevatedButton(
                                     onPressed: () {
-                                      loginB.add(SandiVisibleEvent());
+                                      loginB!.add(SandiVisibleEvent());
                                     },
                                     child: Text('klik'))
                               ],

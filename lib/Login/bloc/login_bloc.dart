@@ -8,8 +8,9 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(SandiVisibleState(visible: true)) {
     on<SandiVisibleEvent>((event, emit) {
-      print(state.visible.toString());
-      return emit(SandiVisibleState(visible: state.visible = !state.visible));
+      print('onhandle ' + state.visible.toString());
+      // Future.delayed(Duration(seconds: 2));
+      emit(SandiVisibleState(visible: state.visible = !state.visible));
     });
   }
 }
