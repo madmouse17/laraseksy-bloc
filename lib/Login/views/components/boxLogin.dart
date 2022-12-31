@@ -9,29 +9,13 @@ import 'package:laraseksy_bloc/utils/imageName.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:sizer/sizer.dart';
 
-class BoxLogin extends StatefulWidget {
-  BoxLogin({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<BoxLogin> createState() => _BoxLoginState();
-}
-
-class _BoxLoginState extends State<BoxLogin> {
+class BoxLogin extends StatelessWidget {
   final RoundedLoadingButtonController btnMasuk =
       RoundedLoadingButtonController();
 
   final TextEditingController nisText = TextEditingController();
 
   final TextEditingController sandiText = TextEditingController();
-  LoginBloc? loginB;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    loginB = BlocProvider.of<LoginBloc>(context);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,33 +63,20 @@ class _BoxLoginState extends State<BoxLogin> {
                         BlocBuilder<LoginBloc, LoginState>(
                           builder: (context, state) {
                             print('widget' + state.visible.toString());
-                            return Column(
-                              children: [
-                                Text(state.visible.toString()),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      loginB!.add(SandiVisibleEvent());
-                                    },
-                                    child: Text('klik'))
-                              ],
+                            return CustomTextFormField(
+                              label: 'Kata Sandi :',
+                              controller: sandiText,
+                              obscureText: state.visible ? true : false,
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    context
+                                        .read<LoginBloc>()
+                                        .add(SandiVisibleEvent());
+                                  },
+                                  icon: state.visible
+                                      ? Icon(Icons.visibility_off)
+                                      : Icon(Icons.visibility)),
                             );
-
-                            //  CustomTextFormField(
-                            //   label: 'Kata Sandi :',
-                            //   controller: sandiText,
-                            //   obscureText: state.visible ? true : false,
-                            //   suffixIcon: IconButton(
-                            //       onPressed: () {
-                            //         loginB.add(SandiVisibleEvent());
-                            //         state.visible
-                            //             ? print('oke')
-                            //             : print('else');
-                            //         log(state.visible.toString());
-                            //       },
-                            //       icon: state.visible
-                            //           ? Icon(Icons.visibility_off)
-                            //           : Icon(Icons.visibility)),
-                            // );
                           },
                         ),
                       ],
