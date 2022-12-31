@@ -1,5 +1,6 @@
 import 'package:laraseksy_bloc/Login/views/login.dart';
 
-class Route {
+class Routes {
   static String login = '/login';
+  static String home = '/home';
 }

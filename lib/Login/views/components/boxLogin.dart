@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:laraseksy_bloc/Login/bloc/login_bloc.dart';
 import 'package:laraseksy_bloc/globalComponents/customFormFIeld.dart';
+import 'package:laraseksy_bloc/routes/routes.dart';
 import 'package:laraseksy_bloc/utils/Pallet.dart';
 import 'package:laraseksy_bloc/utils/imageName.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -85,7 +86,9 @@ class BoxLogin extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
                       child: RoundedLoadingButton(
                         controller: btnMasuk,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.home);
+                        },
                         color: Pallete.tertiaryColor,
                         child: Text(
                           'MASUK',
