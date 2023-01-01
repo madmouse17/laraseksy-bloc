@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:laraseksy_bloc/Home/bloc/home_bloc.dart';
+import 'package:laraseksy_bloc/Home/bloc/homebloc/home_bloc.dart';
 import 'package:laraseksy_bloc/utils/Pallet.dart';
 import 'package:sizer/sizer.dart';
 import 'package:dots_indicator/dots_indicator.dart';

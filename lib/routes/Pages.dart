@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:laraseksy_bloc/Home/bloc/date_bloc.dart';
-import 'package:laraseksy_bloc/Home/bloc/home_bloc.dart';
+import 'package:laraseksy_bloc/Home/bloc/datebloc/date_bloc.dart';
+import 'package:laraseksy_bloc/Home/bloc/homebloc/home_bloc.dart';
 import 'package:laraseksy_bloc/Home/views/home.dart';
 import 'package:laraseksy_bloc/Login/bloc/login_bloc.dart';
 import 'package:laraseksy_bloc/Login/views/login.dart';
