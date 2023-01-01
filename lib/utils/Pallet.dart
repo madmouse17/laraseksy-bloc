@@ -13,7 +13,11 @@ class Pallete {
   static const Color tertiaryDarkColor = Color(0xffB37D23);
 
   static const Color greyDarkColor = Color(0xff585858);
+  static const Color greyListProfileColor = Color(0xffD9D9D9);
+  static const Color redColor = Color(0xffF73B3B);
+  static const Color redDarkColor = Color(0xffFF0000);
   static const Color redAccentColor = Color(0xffF29595);
+  static const Color orangeColor = Color(0xffFF5C00);
 }
 
 Map<int, Color> color = const {

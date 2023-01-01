@@ -4,6 +4,7 @@ import 'package:laraseksy_bloc/Home/bloc/homebloc/home_bloc.dart';
 import 'package:laraseksy_bloc/Home/views/home.dart';
 import 'package:laraseksy_bloc/Login/bloc/login_bloc.dart';
 import 'package:laraseksy_bloc/Login/views/login.dart';
+import 'package:laraseksy_bloc/Profile/views/Profile.dart';
 import 'package:laraseksy_bloc/routes/routes.dart';
 
 class Pages {
@@ -13,7 +14,7 @@ class Pages {
   static routes(context) => {
         Routes.login: (context) => BlocProvider(
               create: (context) => LoginBloc(),
-              child: Login(),
+              child: const Login(),
             ),
         Routes.home: (context) => MultiBlocProvider(
               providers: [
@@ -24,7 +25,11 @@ class Pages {
                   create: (context) => DateBloc(),
                 ),
               ],
-              child: Home(),
+              child: const Home(),
+            ),
+        Routes.profile: (context) => BlocProvider(
+              create: (context) => LoginBloc(),
+              child: const Profile(),
             ),
       };
 }

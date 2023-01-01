@@ -3,6 +3,7 @@ import 'package:laraseksy_bloc/Home/views/components/CardHomeProfile.dart';
 import 'package:laraseksy_bloc/Home/views/components/CardTeacherAndDate.dart';
 import 'package:laraseksy_bloc/Home/views/components/SlidersHome.dart';
 import 'package:laraseksy_bloc/Home/views/components/cardAbsensi.dart';
+import 'package:laraseksy_bloc/routes/routes.dart';
 import 'package:laraseksy_bloc/utils/Pallet.dart';
 import 'package:laraseksy_bloc/utils/imageName.dart';
 import 'package:sizer/sizer.dart';
@@ -41,7 +42,12 @@ class Home extends StatelessWidget {
                       color: Pallete.tertiarySecondaryColor,
                       child: Column(
                         children: [
-                          const CardHomeProfile(),
+                          InkWell(
+                            child: const CardHomeProfile(),
+                            onTap: () {
+                              Navigator.pushNamed(context, Routes.profile);
+                            },
+                          ),
                           SlidersHome(),
                           const CardTeacherAndDate(),
                         ],
@@ -49,7 +55,7 @@ class Home extends StatelessWidget {
                     ),
                   ),
                 ),
-                const CardAbsensi(),
+                CardAbsensi(),
               ],
             ),
           ],

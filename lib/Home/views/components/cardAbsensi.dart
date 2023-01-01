@@ -5,10 +5,11 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:sizer/sizer.dart';
 
 class CardAbsensi extends StatelessWidget {
-  const CardAbsensi({
+  CardAbsensi({
     Key? key,
   }) : super(key: key);
-
+  final RoundedLoadingButtonController btnAbsen =
+      RoundedLoadingButtonController();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -80,7 +81,7 @@ class CardAbsensi extends StatelessWidget {
                     ),
                     RoundedLoadingButton(
                       color: Pallete.tertiarySecondaryColor,
-                      controller: RoundedLoadingButtonController(),
+                      controller: btnAbsen,
                       borderRadius: 0,
                       onPressed: () {},
                       child: const Text('Absen'),
