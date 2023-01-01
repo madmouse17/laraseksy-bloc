@@ -22,29 +22,12 @@ class MyApp extends StatelessWidget {
               Theme.of(context).textTheme,
             ),
             inputDecorationTheme: InputDecorationTheme(
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(color: Colors.white, width: 0.0),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(color: Colors.white, width: 0.0),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(color: Colors.white, width: 0.0),
-                ),
-                disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(color: Colors.white, width: 0.0),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(color: Colors.white, width: 0.0),
-                ),
+                focusedBorder: BorderCustom(),
+                enabledBorder: BorderCustom(),
+                border: BorderCustom(),
+                errorBorder: BorderCustom(),
+                disabledBorder: BorderCustom(),
+                focusedErrorBorder: BorderCustom(),
                 fillColor: Colors.white,
                 filled: true),
             primarySwatch: colorCustom,
@@ -53,5 +36,12 @@ class MyApp extends StatelessWidget {
         routes: Pages.routes(context),
       );
     });
+  }
+
+  OutlineInputBorder BorderCustom() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: const BorderSide(color: Colors.white, width: 0.0),
+    );
   }
 }

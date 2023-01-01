@@ -8,7 +8,9 @@ abstract class LoginEvent extends Equatable {
 }
 
 class SandiVisibleEvent extends LoginEvent {
-  const SandiVisibleEvent();
+  bool visible;
+
+  SandiVisibleEvent({required this.visible});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [visible];
 }

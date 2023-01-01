@@ -10,7 +10,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<SandiVisibleEvent>((event, emit) {
       print('onhandle ' + state.visible.toString());
       // Future.delayed(Duration(seconds: 2));
-      emit(SandiVisibleState(visible:  !state.visible));
+      emit(SandiVisibleState(visible: !state.visible));
     });
   }
 }

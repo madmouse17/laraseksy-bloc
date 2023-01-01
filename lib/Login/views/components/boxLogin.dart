@@ -63,16 +63,15 @@ class BoxLogin extends StatelessWidget {
                         ),
                         BlocBuilder<LoginBloc, LoginState>(
                           builder: (context, state) {
-                            print('widget' + state.visible.toString());
                             return CustomTextFormField(
                               label: 'Kata Sandi :',
                               controller: sandiText,
                               obscureText: state.visible ? true : false,
                               suffixIcon: IconButton(
                                   onPressed: () {
-                                    context
-                                        .read<LoginBloc>()
-                                        .add(SandiVisibleEvent());
+                                    context.read<LoginBloc>().add(
+                                        SandiVisibleEvent(
+                                            visible: !state.visible));
                                   },
                                   icon: state.visible
                                       ? Icon(Icons.visibility_off)
