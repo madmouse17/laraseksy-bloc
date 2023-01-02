@@ -27,7 +27,7 @@ class CustomTextFormField extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(left: 3.w),
           child: AutoSizeText(
-            label,
+            '$label :',
             maxLines: 1,
             minFontSize: 8,
             style: Theme.of(context)
@@ -41,6 +41,8 @@ class CustomTextFormField extends StatelessWidget {
           obscureText: obscureText ?? false,
           keyboardType: textInputType,
           decoration: InputDecoration(suffixIcon: suffixIcon),
+          validator: (value) =>
+              value!.isEmpty ? '$label tidak boleh kosong!' : null,
         ),
         const VerticalSpace()
       ],

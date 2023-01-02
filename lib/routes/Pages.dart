@@ -2,8 +2,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:laraseksy_bloc/Home/bloc/datebloc/date_bloc.dart';
 import 'package:laraseksy_bloc/Home/bloc/homebloc/home_bloc.dart';
 import 'package:laraseksy_bloc/Home/views/home.dart';
-import 'package:laraseksy_bloc/Login/bloc/login_bloc.dart';
+import 'package:laraseksy_bloc/Login/bloc/loginbloc/login_bloc.dart';
+import 'package:laraseksy_bloc/Login/bloc/sandivisiblebloc/sandivisible_bloc.dart';
 import 'package:laraseksy_bloc/Login/views/login.dart';
+import 'package:laraseksy_bloc/Profile/bloc/profile_bloc.dart';
 import 'package:laraseksy_bloc/Profile/views/Profile.dart';
 import 'package:laraseksy_bloc/routes/routes.dart';
 
@@ -12,8 +14,15 @@ class Pages {
   static String Initial = Routes.login;
 
   static routes(context) => {
-        Routes.login: (context) => BlocProvider(
-              create: (context) => LoginBloc(),
+        Routes.login: (context) => MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => SandivisibleBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => LoginBloc(),
+                ),
+              ],
               child: const Login(),
             ),
         Routes.home: (context) => MultiBlocProvider(
@@ -28,7 +37,7 @@ class Pages {
               child: const Home(),
             ),
         Routes.profile: (context) => BlocProvider(
-              create: (context) => LoginBloc(),
+              create: (context) => ProfileBloc(),
               child: const Profile(),
             ),
       };

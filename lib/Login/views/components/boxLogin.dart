@@ -2,7 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:laraseksy_bloc/Login/bloc/login_bloc.dart';
+import 'package:laraseksy_bloc/Login/bloc/loginbloc/login_bloc.dart';
+import 'package:laraseksy_bloc/Login/bloc/sandivisiblebloc/sandivisible_bloc.dart';
 import 'package:laraseksy_bloc/globalComponents/customFormFIeld.dart';
 import 'package:laraseksy_bloc/routes/routes.dart';
 import 'package:laraseksy_bloc/utils/Pallet.dart';
@@ -17,94 +18,113 @@ class BoxLogin extends StatelessWidget {
   final TextEditingController nisText = TextEditingController();
 
   final TextEditingController sandiText = TextEditingController();
-
+  final loginKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Flexible(
       flex: 3,
-      child: Container(
-        margin: EdgeInsets.only(top: 4.h),
-        child: Stack(
-          children: [
-            Positioned(
-                top: -0.6.h,
-                left: 10.w,
-                child: Image.asset(
-                  ImageName.imageLoginSeek,
-                  height: 10.h,
-                )),
-            Container(
-              margin: EdgeInsets.only(right: 13.w, top: 8.h, bottom: 0.h),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(100),
-                    topRight: Radius.circular(10)),
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    Pallete.boxLoginColor,
-                    Pallete.boxLoginAccentColor,
-                  ],
+      child: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        key: loginKey,
+        child: Container(
+          margin: EdgeInsets.only(top: 4.h),
+          child: Stack(
+            children: [
+              Positioned(
+                  top: -0.6.h,
+                  left: 10.w,
+                  child: Image.asset(
+                    ImageName.imageLoginSeek,
+                    height: 10.h,
+                  )),
+              Container(
+                margin: EdgeInsets.only(right: 13.w, top: 8.h, bottom: 0.h),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(100),
+                      topRight: Radius.circular(10)),
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      Pallete.boxLoginColor,
+                      Pallete.boxLoginAccentColor,
+                    ],
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 3.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        CustomTextFormField(
-                          label: 'NIS :',
-                          controller: nisText,
-                          textInputType: TextInputType.number,
-                        ),
-                        BlocBuilder<LoginBloc, LoginState>(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 3.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          CustomTextFormField(
+                            label: 'NIS',
+                            controller: nisText,
+                            textInputType: TextInputType.number,
+                          ),
+                          BlocBuilder<SandivisibleBloc, SandivisibleState>(
+                            builder: (context, state) {
+                              return CustomTextFormField(
+                                label: 'Kata Sandi',
+                                controller: sandiText,
+                                obscureText: state.visible ? true : false,
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      context.read<SandivisibleBloc>().add(
+                                          SandiVisibleEvent(
+                                              visible: !state.visible));
+                                    },
+                                    icon: state.visible
+                                        ? Icon(Icons.visibility_off)
+                                        : Icon(Icons.visibility)),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        child: BlocBuilder<LoginBloc, LoginState>(
                           builder: (context, state) {
-                            return CustomTextFormField(
-                              label: 'Kata Sandi :',
-                              controller: sandiText,
-                              obscureText: state.visible ? true : false,
-                              suffixIcon: IconButton(
-                                  onPressed: () {
-                                    context.read<LoginBloc>().add(
-                                        SandiVisibleEvent(
-                                            visible: !state.visible));
-                                  },
-                                  icon: state.visible
-                                      ? Icon(Icons.visibility_off)
-                                      : Icon(Icons.visibility)),
+                            return RoundedLoadingButton(
+                              controller: btnMasuk,
+                              onPressed: () {
+                                if (loginKey.currentState!.validate()) {
+                                  context.read<LoginBloc>().add(LoginEventClick(
+                                      nis: nisText.text,
+                                      password: sandiText.text));
+                                  btnMasuk.reset();
+
+                                  if (state is Success) {
+                                    Navigator.pushNamed(context, Routes.home);
+                                  }
+                                } else {
+                                  btnMasuk.reset();
+                                }
+                              },
+                              color: Pallete.tertiaryColor,
+                              child: Text(
+                                'MASUK',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Pallete.tertiaryDarkColor),
+                              ),
                             );
                           },
                         ),
-                      ],
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      child: RoundedLoadingButton(
-                        controller: btnMasuk,
-                        onPressed: () {
-                          Navigator.pushNamed(context, Routes.home);
-                        },
-                        color: Pallete.tertiaryColor,
-                        child: Text(
-                          'MASUK',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Pallete.tertiaryDarkColor),
-                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
