@@ -8,6 +8,7 @@ import 'package:laraseksy_bloc/globalComponents/customFormFIeld.dart';
 import 'package:laraseksy_bloc/routes/routes.dart';
 import 'package:laraseksy_bloc/utils/Pallet.dart';
 import 'package:laraseksy_bloc/utils/imageName.dart';
+import 'package:laraseksy_bloc/utils/snackBarCustom.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:sizer/sizer.dart';
 
@@ -93,14 +94,11 @@ class BoxLogin extends StatelessWidget {
                               controller: btnMasuk,
                               onPressed: () {
                                 if (loginKey.currentState!.validate()) {
+                                  AlertBottom().hideKeyboard();
                                   context.read<LoginBloc>().add(LoginEventClick(
                                       nis: nisText.text,
                                       password: sandiText.text));
                                   btnMasuk.reset();
-
-                                  if (state is Success) {
-                                    Navigator.pushNamed(context, Routes.home);
-                                  }
                                 } else {
                                   btnMasuk.reset();
                                 }

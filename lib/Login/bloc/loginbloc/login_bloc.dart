@@ -1,13 +1,19 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 import 'package:laraseksy_bloc/Login/Models/loginModels.dart';
 import 'package:laraseksy_bloc/Login/Provider/loginProvider.dart';
+import 'package:laraseksy_bloc/routes/routes.dart';
 import 'package:laraseksy_bloc/secureStorage/hiveSecure.dart';
 import 'package:laraseksy_bloc/secureStorage/keyStorage.dart';
 import 'package:laraseksy_bloc/utils/apiRequest.dart';
+import 'package:laraseksy_bloc/utils/apiURL.dart';
+import 'package:laraseksy_bloc/utils/navigatorKey.dart';
+import 'package:laraseksy_bloc/utils/snackBarCustom.dart';
 import 'package:meta/meta.dart';
 
 part 'login_event.dart';
@@ -17,32 +23,30 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitial()) {
     LoginProvider loginProvider = LoginProvider();
     on<LoginEventClick>((event, emit) async {
-      Completer<LoginState> c = Completer<LoginState>();
-
       emit(Loading());
-      await Future.delayed(const Duration(seconds: 2));
-
-      await loginProvider.postLoginData(
-        dataQuery: {'nis': event.nis, 'password': event.password},
-        onSuccess: (value) async {
-          // print(value);
-          await Future.delayed(const Duration(seconds: 2));
-
-          setLocal(value: value).then((_) async {
-            ApiRequest.getToken();
-            await Future.delayed(const Duration(seconds: 2));
+      try {
+        await ApiRequest(
+                url: ApiURL.login,
+                dataQuery: {'nis': event.nis, 'password': event.password})
+            .post()
+            .then((value) async {
+          var loginData = loginModelsFromJson(value);
+          await setLocal(value: loginData).then((_) async {
+            await ApiRequest.getToken();
           });
-          var stateToRetern = c.future;
-
-          emit(Success(loginModels: value));
-        },
-        onErrorData: (error) async {
-          await Future.delayed(const Duration(seconds: 2));
-
-          emit(Error());
-          // AlertController.alertErrorData(errorData: error);
-        },
-      );
+          // print(value.toString());
+          emit(
+            Success(
+              loginModels: loginData,
+            ),
+          );
+          NavigationService.navigatorKey.currentState!
+              .popAndPushNamed(Routes.home);
+        });
+      } on DioError catch (e) {
+        AlertBottom().onErrorAlertDioDefault(error: e);
+        emit(Error());
+      }
     });
   }
   Future setLocal({required LoginModels value}) async {
@@ -65,7 +69,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       KeyStorage.tokenType: value.data.tokenType,
       KeyStorage.accesToken: value.data.accessToken
     });
-    final siswa = await encrypt.get('siswa');
-    print(siswa.toString());
+    // final siswa = await encrypt.get('siswa');
+    // print(siswa.toString());
   }
 }

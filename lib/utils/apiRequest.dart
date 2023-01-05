@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -10,6 +11,7 @@ import 'package:laraseksy_bloc/utils/apiURL.dart';
 import 'package:laraseksy_bloc/secureStorage/hiveSecure.dart';
 import 'package:laraseksy_bloc/utils/navigatorKey.dart';
 import 'package:laraseksy_bloc/secureStorage/secureStorage.dart';
+import 'package:laraseksy_bloc/utils/snackBarCustom.dart';
 
 class ApiRequest {
   final String url;
@@ -62,56 +64,12 @@ class ApiRequest {
     }
   }
 
-  post({
-    Function()? beforeSend,
-    Function(dynamic success)? onSuccess,
-    Function(dynamic error)? onErrorData,
-    Function(String error)? onError,
-  }) async {
+  Future post() async {
     try {
       Response res = await _dio().post(url, data: dataQuery);
-
-      if (onSuccess != null) onSuccess(res.data);
-    } on DioError catch (e) {
-      if (e.response != null) {
-        if (e.response!.statusCode == 401) {
-          ErrorModels error = errorModelsFromJson(e.response.toString());
-          ScaffoldMessenger.of(NavigationService.navigatorKey.currentContext!)
-              .showSnackBar(SnackBar(
-            content: Text(error.errors.failed[0],
-                style: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold)),
-            backgroundColor: Pallete.redAccentColor,
-            duration: Duration(seconds: 5),
-            action: SnackBarAction(
-              label: 'Login Ulang',
-              textColor: Colors.white,
-              onPressed: () => NavigationService.navigatorKey.currentState!
-                  .popAndPushNamed(Routes.login),
-            ),
-          ));
-          NavigationService.navigatorKey.currentState!
-              .popAndPushNamed(Routes.login);
-        } else {
-          if (onErrorData != null) onErrorData(e.response!.data);
-        }
-      } else {
-        ScaffoldMessenger.of(NavigationService.navigatorKey.currentContext!)
-            .showSnackBar(SnackBar(
-          content: Text(e.message,
-              style: const TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold)),
-          backgroundColor: Pallete.redAccentColor,
-          action: SnackBarAction(
-            label: 'Error',
-            textColor: Colors.white,
-            onPressed: () {
-              NavigationService.navigatorKey.currentState!.pop();
-            },
-          ),
-        ));
-        if (onError != null) onError(e.message);
-      }
+      return jsonEncode(res.data);
+    } on DioError {
+      rethrow;
     }
   }
 }
