@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:laraseksy_bloc/Home/bloc/cardHomeProfilebloc/card_home_profile_bloc.dart';
 import 'package:laraseksy_bloc/Home/bloc/datebloc/date_bloc.dart';
 import 'package:laraseksy_bloc/Home/bloc/homebloc/home_bloc.dart';
 import 'package:laraseksy_bloc/Home/views/home.dart';
@@ -33,11 +34,18 @@ class Pages {
                 BlocProvider(
                   create: (context) => DateBloc(),
                 ),
+                BlocProvider(
+                  create: (context) => CardHomeProfileBloc(),
+                ),
               ],
               child: const Home(),
             ),
-        Routes.profile: (context) => BlocProvider(
-              create: (context) => ProfileBloc(),
+        Routes.profile: (context) => MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => ProfileBloc(),
+                ),
+              ],
               child: const Profile(),
             ),
       };

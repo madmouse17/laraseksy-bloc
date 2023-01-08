@@ -55,13 +55,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Box<dynamic> encrypt = await HiveSecure.openBox(key: BoxKey.siswa);
 
     await encrypt.put(BoxKey.siswa, {
-      KeyStorage.siswaId: data.id,
+      KeyStorage.siswaId: data.id.toString(),
       KeyStorage.siswaNama: data.nama,
-      KeyStorage.siswaKelasId: data.kelas.id,
+      KeyStorage.siswaKelasId: data.kelas.id.toString(),
       KeyStorage.siswaKelas: data.kelas.kelas,
-      KeyStorage.siswaTahunajaranId: sekolah.tahunajaran.id,
+      KeyStorage.siswaTahunajaranId: sekolah.tahunajaran.id.toString(),
       KeyStorage.siswaTahunajaran: sekolah.tahunajaran.tahun,
-      KeyStorage.siswaSemesterId: sekolah.semester.id,
+      KeyStorage.siswaSemesterId: sekolah.semester.id.toString(),
       KeyStorage.siswaSemester: sekolah.semester.semester,
     });
     Box<dynamic> encryptToken = await HiveSecure.openBox(key: BoxKey.token);
