@@ -35,32 +35,25 @@ class ApiRequest {
   Dio _dio() {
     // Put your authorization token here
     print(ApiURL.baseURL);
+    getToken();
     return Dio(
       BaseOptions(
         baseUrl: ApiURL.baseURL,
         headers: {
-          '$tokenType': token ?? accessToken,
+          'Authorization':
+              token != null ? 'Bearer $token' : 'Bearer $accessToken',
           'content-Type': 'application/json'
         },
       ),
     );
   }
 
-  void get({
-    Function()? beforeSend,
-    Function(dynamic data)? onSuccess,
-    Function(dynamic error)? onErrorData,
-    Function(String error)? onError,
-  }) async {
+  Future get() async {
     try {
       var res = await _dio().get(url, queryParameters: dataQuery);
-      if (onSuccess != null) onSuccess(res.data);
-    } on DioError catch (e) {
-      if (e.response != null) {
-        if (onErrorData != null) onErrorData(e.response!.data);
-      } else {
-        if (onError != null) onError(e.message);
-      }
+      return jsonEncode(res.data);
+    } on DioError {
+      rethrow;
     }
   }
 

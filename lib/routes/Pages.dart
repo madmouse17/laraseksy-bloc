@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:laraseksy_bloc/Home/bloc/cardAbsensibloc/card_absensi_bloc.dart';
 import 'package:laraseksy_bloc/Home/bloc/cardHomeProfilebloc/card_home_profile_bloc.dart';
 import 'package:laraseksy_bloc/Home/bloc/datebloc/date_bloc.dart';
 import 'package:laraseksy_bloc/Home/bloc/homebloc/home_bloc.dart';
@@ -36,6 +37,9 @@ class Pages {
                 ),
                 BlocProvider(
                   create: (context) => CardHomeProfileBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => CardAbsensiBloc(),
                 ),
               ],
               child: const Home(),
