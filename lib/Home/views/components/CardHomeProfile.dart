@@ -109,7 +109,7 @@ class _CardHomeProfileState extends State<CardHomeProfile> {
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           AutoSizeText(
-                            'Teknik Informatika',
+                            'Jurusan belum dibuat',
                             maxLines: 1,
                             minFontSize: 8,
                             style: Theme.of(context)

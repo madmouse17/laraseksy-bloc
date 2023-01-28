@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
@@ -31,6 +32,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             .post()
             .then((value) async {
           var loginData = loginModelsFromJson(value);
+          log('login = ${jsonEncode(loginData)}');
           await setLocal(value: loginData).then((_) async {
             await ApiRequest.getToken();
           });

@@ -27,7 +27,7 @@ class ApiRequest {
     accessToken = tok?[KeyStorage.accesToken];
     tokenType = tok?[KeyStorage.tokenType];
 
-    log(accessToken!);
+    log(accessToken ?? 'kosong');
   }
 
   ApiRequest({required this.url, this.dataQuery, this.token});

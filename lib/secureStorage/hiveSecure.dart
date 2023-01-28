@@ -16,7 +16,7 @@ class HiveSecure {
     }
     final key = await SecureStorage.init.read(key: 'key');
     final encrypt = base64Url.decode(key!);
-    print('Encryption key: $encrypt');
+    // print('Encryption key: $encrypt');
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     return Hive.openBox(key,
         encryptionCipher: HiveAesCipher(encrypt),

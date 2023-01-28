@@ -19,4 +19,9 @@ class LoadedState extends CardAbsensiState {
 
 class LoadingState extends CardAbsensiState {}
 
-class ErrorState extends CardAbsensiState {}
+class ErrorState extends CardAbsensiState {
+  ErrorModels? errorModels;
+  String? waliKelas;
+
+  ErrorState({required this.errorModels, required this.waliKelas});
+}

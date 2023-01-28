@@ -3,6 +3,7 @@ import 'package:laraseksy_bloc/Home/bloc/cardAbsensibloc/card_absensi_bloc.dart'
 import 'package:laraseksy_bloc/Home/bloc/cardHomeProfilebloc/card_home_profile_bloc.dart';
 import 'package:laraseksy_bloc/Home/bloc/datebloc/date_bloc.dart';
 import 'package:laraseksy_bloc/Home/bloc/homebloc/home_bloc.dart';
+import 'package:laraseksy_bloc/Home/bloc/sliderbloc/slider_bloc.dart';
 import 'package:laraseksy_bloc/Home/views/home.dart';
 import 'package:laraseksy_bloc/Login/bloc/loginbloc/login_bloc.dart';
 import 'package:laraseksy_bloc/Login/bloc/sandivisiblebloc/sandivisible_bloc.dart';
@@ -34,6 +35,9 @@ class Pages {
                 ),
                 BlocProvider(
                   create: (context) => DateBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => SliderBloc(),
                 ),
                 BlocProvider(
                   create: (context) => CardHomeProfileBloc(),
