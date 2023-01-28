@@ -108,7 +108,7 @@ class _SlidersHomeState extends State<SlidersHome> {
                     ),
                   )
                 : (state is LoadingState)
-                    ? Center(
+                    ? const Center(
                         child: CircularProgressIndicator(),
                       )
                     : Container(),

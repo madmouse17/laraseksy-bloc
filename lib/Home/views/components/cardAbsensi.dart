@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:laraseksy_bloc/Home/bloc/cardAbsensibloc/card_absensi_bloc.dart';
+import 'package:laraseksy_bloc/Home/bloc/cardHomeProfilebloc/card_home_profile_bloc.dart';
+import 'package:laraseksy_bloc/Home/bloc/datebloc/date_bloc.dart';
 import 'package:laraseksy_bloc/utils/Pallet.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:sizer/sizer.dart';
+import 'package:laraseksy_bloc/extension/isSameDate.dart';
 
 class CardAbsensi extends StatefulWidget {
   CardAbsensi({
@@ -130,20 +133,30 @@ class _CardAbsensiState extends State<CardAbsensi> {
                                       height: 0,
                                       thickness: 2,
                                     ),
-                                    RoundedLoadingButton(
-                                      color: Pallete.tertiarySecondaryColor,
-                                      controller: btnAbsen,
-                                      borderRadius: 0,
-                                      onPressed: state
-                                                  .cardAbsensiModels
-                                                  .data!
-                                                  .jadwaldetail![index]!
-                                                  .guru!
-                                                  .nama! ==
-                                              "Istirahat"
-                                          ? null
-                                          : () {},
-                                      child: const Text('Absen'),
+                                    BlocBuilder<DateBloc, DateState>(
+                                      builder: (context, stateDate) {
+                                        print(stateDate.now.toString());
+                                        print(DateTime.now()
+                                            .compareTo(stateDate.now));
+
+                                        return RoundedLoadingButton(
+                                          color: Pallete.tertiarySecondaryColor,
+                                          controller: btnAbsen,
+                                          borderRadius: 0,
+                                          onPressed: state
+                                                          .cardAbsensiModels
+                                                          .data!
+                                                          .jadwaldetail![index]!
+                                                          .guru!
+                                                          .nama! ==
+                                                      "Istirahat" ||
+                                                  !DateTime.now()
+                                                      .isSameDate(stateDate.now)
+                                              ? null
+                                              : () {},
+                                          child: const Text('Absen'),
+                                        );
+                                      },
                                     ),
                                   ],
                                 ),
