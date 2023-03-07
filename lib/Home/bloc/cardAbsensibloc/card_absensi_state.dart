@@ -11,7 +11,8 @@ class CardAbsensiInitial extends CardAbsensiState {}
 
 class LoadedState extends CardAbsensiState {
   CardAbsensiModels cardAbsensiModels;
-  LoadedState({required this.cardAbsensiModels});
+  String wali;
+  LoadedState({required this.cardAbsensiModels, required this.wali});
 
   @override
   List<Object> get props => [cardAbsensiModels];

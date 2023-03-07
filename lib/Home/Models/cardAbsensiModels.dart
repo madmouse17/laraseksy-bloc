@@ -5,11 +5,11 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-CardAbsensiModels? cardAbsensiModelsFromJson(String str) =>
+CardAbsensiModels cardAbsensiModelsFromJson(String str) =>
     CardAbsensiModels.fromJson(json.decode(str));
 
-String cardAbsensiModelsToJson(CardAbsensiModels? data) =>
-    json.encode(data!.toJson());
+String cardAbsensiModelsToJson(CardAbsensiModels data) =>
+    json.encode(data.toJson());
 
 class CardAbsensiModels {
   CardAbsensiModels({
@@ -18,9 +18,9 @@ class CardAbsensiModels {
     required this.data,
   });
 
-  String? type;
-  String? title;
-  Data? data;
+  String type;
+  String title;
+  Data data;
 
   factory CardAbsensiModels.fromJson(Map<String, dynamic> json) =>
       CardAbsensiModels(
@@ -32,7 +32,7 @@ class CardAbsensiModels {
   Map<String, dynamic> toJson() => {
         "type": type,
         "title": title,
-        "data": data!.toJson(),
+        "data": data.toJson(),
       };
 }
 
@@ -40,28 +40,20 @@ class Data {
   Data({
     required this.day,
     required this.jadwaldetail,
-    required this.waliKelas,
   });
 
-  Day? day;
-  List<Jadwaldetail?>? jadwaldetail;
-  WaliKelas? waliKelas;
+  Day day;
+  List<Jadwaldetail> jadwaldetail;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         day: Day.fromJson(json["day"]),
-        jadwaldetail: json["jadwaldetail"] == null
-            ? []
-            : List<Jadwaldetail?>.from(
-                json["jadwaldetail"]!.map((x) => Jadwaldetail.fromJson(x))),
-        waliKelas: WaliKelas.fromJson(json["wali_kelas"]),
+        jadwaldetail: List<Jadwaldetail>.from(
+            json["jadwaldetail"].map((x) => Jadwaldetail.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "day": day!.toJson(),
-        "jadwaldetail": jadwaldetail == null
-            ? []
-            : List<dynamic>.from(jadwaldetail!.map((x) => x!.toJson())),
-        "wali_kelas": waliKelas!.toJson(),
+        "day": day.toJson(),
+        "jadwaldetail": List<dynamic>.from(jadwaldetail.map((x) => x.toJson())),
       };
 }
 
@@ -71,8 +63,8 @@ class Day {
     required this.hari,
   });
 
-  String? id;
-  String? hari;
+  String id;
+  String hari;
 
   factory Day.fromJson(Map<String, dynamic> json) => Day(
         id: json["id"],
@@ -95,10 +87,10 @@ class Jadwaldetail {
   });
 
   dynamic id;
-  String? mulai;
-  String? selesai;
-  Guru? guru;
-  Mapel? mapel;
+  String mulai;
+  String selesai;
+  Guru guru;
+  Mapel mapel;
 
   factory Jadwaldetail.fromJson(Map<String, dynamic> json) => Jadwaldetail(
         id: json["id"],
@@ -112,8 +104,8 @@ class Jadwaldetail {
         "id": id,
         "mulai": mulai,
         "selesai": selesai,
-        "guru": guru!.toJson(),
-        "mapel": mapel!.toJson(),
+        "guru": guru.toJson(),
+        "mapel": mapel.toJson(),
       };
 }
 
@@ -124,7 +116,7 @@ class Guru {
   });
 
   dynamic id;
-  String? nama;
+  String nama;
 
   factory Guru.fromJson(Map<String, dynamic> json) => Guru(
         id: json["id"],
@@ -144,7 +136,7 @@ class Mapel {
   });
 
   dynamic id;
-  String? mapel;
+  String mapel;
 
   factory Mapel.fromJson(Map<String, dynamic> json) => Mapel(
         id: json["id"],
@@ -154,25 +146,5 @@ class Mapel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "mapel": mapel,
-      };
-}
-
-class WaliKelas {
-  WaliKelas({
-    required this.id,
-    required this.nama,
-  });
-
-  String? id;
-  String? nama;
-
-  factory WaliKelas.fromJson(Map<String, dynamic> json) => WaliKelas(
-        id: json["id"],
-        nama: json["nama"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "nama": nama,
       };
 }

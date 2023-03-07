@@ -31,11 +31,11 @@ class CardAbsensiBloc extends Bloc<CardAbsensiEvent, CardAbsensiState> {
             .post()
             .then((value) async {
           // log(value.toString());
-          var datahome = cardAbsensiModelsFromJson(value)!;
-          encrypt.put(BoxKey.waliKelas,
-              {KeyStorage.waliNama: datahome.data!.waliKelas!.nama!});
+          var datahome = cardAbsensiModelsFromJson(value);
+          var wali = encrypt.get(BoxKey.waliKelas);
           emit(LoadedState(
             cardAbsensiModels: datahome,
+            wali: wali?[KeyStorage.waliNama],
           ));
         });
       } on DioError catch (e) {

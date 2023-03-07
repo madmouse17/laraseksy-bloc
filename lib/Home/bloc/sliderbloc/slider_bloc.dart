@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
@@ -17,8 +18,10 @@ class SliderBloc extends Bloc<SliderEvent, SliderState> {
     on<SliderEvent>((event, emit) async {
       emit(LoadingState());
       try {
-        await ApiRequest(url: ApiURL.pengumuman).get().then((value) async {
-          print(value.toString());
+        await ApiRequest(url: ApiURL.pengumuman, parameter: '')
+            .get()
+            .then((value) async {
+          log(jsonEncode(value));
           emit(
             LoadedState(
               sliderModels: sliderModelsFromJson(
@@ -28,6 +31,7 @@ class SliderBloc extends Bloc<SliderEvent, SliderState> {
           );
         });
       } on DioError catch (e) {
+        log(e.response.toString());
         if (e.response != null) {
           emit(
             ErrorState(

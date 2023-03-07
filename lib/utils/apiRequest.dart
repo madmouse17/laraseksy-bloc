@@ -17,7 +17,7 @@ class ApiRequest {
   final String url;
   final Map<String, dynamic>? dataQuery;
   final String? token;
-
+  final String? parameter;
   static String? accessToken;
   static String? tokenType;
 
@@ -30,7 +30,7 @@ class ApiRequest {
     log(accessToken ?? 'kosong');
   }
 
-  ApiRequest({required this.url, this.dataQuery, this.token});
+  ApiRequest({required this.url, this.dataQuery, this.token, this.parameter});
 
   Dio _dio() {
     // Put your authorization token here
@@ -50,7 +50,7 @@ class ApiRequest {
 
   Future get() async {
     try {
-      var res = await _dio().get(url, queryParameters: dataQuery);
+      var res = await _dio().get('$url/$parameter', queryParameters: dataQuery);
       return jsonEncode(res.data);
     } on DioError {
       rethrow;

@@ -58,18 +58,14 @@ class _CardAbsensiState extends State<CardAbsensi> {
                             mainAxisExtent: 20.h,
                             mainAxisSpacing: 2.w),
                         itemCount:
-                            state.cardAbsensiModels.data!.jadwaldetail!.length,
+                            state.cardAbsensiModels.data.jadwaldetail.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
                             clipBehavior: Clip.antiAlias,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: state
-                                            .cardAbsensiModels
-                                            .data!
-                                            .jadwaldetail![index]!
-                                            .guru!
-                                            .nama! ==
+                                color: state.cardAbsensiModels.data
+                                            .jadwaldetail[index].guru.nama ==
                                         "Istirahat"
                                     ? Pallete.redAccentColor
                                     : Pallete.tertiaryColor),
@@ -85,12 +81,8 @@ class _CardAbsensiState extends State<CardAbsensi> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       AutoSizeText(
-                                        state
-                                            .cardAbsensiModels
-                                            .data!
-                                            .jadwaldetail![index]!
-                                            .mapel!
-                                            .mapel!,
+                                        state.cardAbsensiModels.data
+                                            .jadwaldetail[index].mapel.mapel,
                                         maxLines: 1,
                                         minFontSize: 8,
                                         overflow: TextOverflow.ellipsis,
@@ -101,8 +93,8 @@ class _CardAbsensiState extends State<CardAbsensi> {
                                                 fontWeight: FontWeight.bold),
                                       ),
                                       AutoSizeText(
-                                        state.cardAbsensiModels.data!
-                                            .jadwaldetail![index]!.guru!.nama!,
+                                        state.cardAbsensiModels.data
+                                            .jadwaldetail[index].guru.nama,
                                         maxLines: 1,
                                         minFontSize: 8,
                                         overflow: TextOverflow.ellipsis,
@@ -113,7 +105,7 @@ class _CardAbsensiState extends State<CardAbsensi> {
                                                 fontWeight: FontWeight.bold),
                                       ),
                                       AutoSizeText(
-                                        '${state.cardAbsensiModels.data!.jadwaldetail![index]!.mulai!}-${state.cardAbsensiModels.data!.jadwaldetail![index]!.selesai!}',
+                                        '${state.cardAbsensiModels.data.jadwaldetail[index].mulai}-${state.cardAbsensiModels.data.jadwaldetail[index].selesai}',
                                         maxLines: 1,
                                         minFontSize: 8,
                                         overflow: TextOverflow.ellipsis,
@@ -145,10 +137,10 @@ class _CardAbsensiState extends State<CardAbsensi> {
                                           borderRadius: 0,
                                           onPressed: state
                                                           .cardAbsensiModels
-                                                          .data!
-                                                          .jadwaldetail![index]!
-                                                          .guru!
-                                                          .nama! ==
+                                                          .data
+                                                          .jadwaldetail[index]
+                                                          .guru
+                                                          .nama ==
                                                       "Istirahat" ||
                                                   !DateTime.now()
                                                       .isSameDate(stateDate.now)

@@ -57,7 +57,7 @@ class _CardTeacherAndDateState extends State<CardTeacherAndDate> {
                   )
                 ] else if (state is LoadedState) ...[
                   AutoSizeText(
-                    state.cardAbsensiModels.data!.waliKelas!.nama!,
+                    state.wali,
                     maxLines: 1,
                     minFontSize: 8,
                     overflow: TextOverflow.ellipsis,
@@ -66,7 +66,7 @@ class _CardTeacherAndDateState extends State<CardTeacherAndDate> {
                         fontWeight: FontWeight.bold),
                   )
                 ] else if (state is ErrorState) ...[
-                  (state.waliKelas!.isEmpty)
+                  (state.waliKelas == null)
                       ? Container()
                       : AutoSizeText(
                           state.waliKelas!,

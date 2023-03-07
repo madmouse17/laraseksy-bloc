@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -97,7 +99,7 @@ class _SlidersHomeState extends State<SlidersHome> {
                           .toList(),
                       carouselController: _controller,
                       options: CarouselOptions(
-                          autoPlay: true,
+                          // autoPlay: true,
                           enlargeCenterPage: true,
                           aspectRatio: 2.8,
                           onPageChanged: (index, reason) {
