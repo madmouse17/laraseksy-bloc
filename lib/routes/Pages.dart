@@ -5,6 +5,8 @@ import 'package:laraseksy_bloc/Home/bloc/datebloc/date_bloc.dart';
 import 'package:laraseksy_bloc/Home/bloc/homebloc/home_bloc.dart';
 import 'package:laraseksy_bloc/Home/bloc/sliderbloc/slider_bloc.dart';
 import 'package:laraseksy_bloc/Home/views/home.dart';
+import 'package:laraseksy_bloc/ImagePoint/bloc/cekimagepoint_bloc.dart';
+import 'package:laraseksy_bloc/ImagePoint/views/cekImagePoint.dart';
 import 'package:laraseksy_bloc/Login/bloc/loginbloc/login_bloc.dart';
 import 'package:laraseksy_bloc/Login/bloc/sandivisiblebloc/sandivisible_bloc.dart';
 import 'package:laraseksy_bloc/Login/views/login.dart';
@@ -19,6 +21,9 @@ class Pages {
   static routes(context) => {
         Routes.login: (context) => MultiBlocProvider(
               providers: [
+                BlocProvider(
+                  create: (context) => CekimagepointBloc(),
+                ),
                 BlocProvider(
                   create: (context) => SandivisibleBloc(),
                 ),
@@ -55,6 +60,14 @@ class Pages {
                 ),
               ],
               child: const Profile(),
+            ),
+        Routes.cekimagepoint: (context) => MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => CekimagepointBloc(),
+                ),
+              ],
+              child: const CekImagePoint(),
             ),
       };
 }

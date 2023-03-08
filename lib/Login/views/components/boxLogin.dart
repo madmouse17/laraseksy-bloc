@@ -2,12 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:laraseksy_bloc/ImagePoint/bloc/cekimagepoint_bloc.dart';
 import 'package:laraseksy_bloc/Login/bloc/loginbloc/login_bloc.dart';
 import 'package:laraseksy_bloc/Login/bloc/sandivisiblebloc/sandivisible_bloc.dart';
 import 'package:laraseksy_bloc/globalComponents/customFormFIeld.dart';
 import 'package:laraseksy_bloc/routes/routes.dart';
 import 'package:laraseksy_bloc/utils/Pallet.dart';
 import 'package:laraseksy_bloc/utils/imageName.dart';
+import 'package:laraseksy_bloc/utils/navigatorKey.dart';
 import 'package:laraseksy_bloc/utils/snackBarCustom.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:sizer/sizer.dart';
@@ -86,36 +88,41 @@ class BoxLogin extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w),
-                        child: BlocBuilder<LoginBloc, LoginState>(
-                          builder: (context, state) {
-                            return RoundedLoadingButton(
-                              controller: btnMasuk,
-                              onPressed: () {
-                                if (loginKey.currentState!.validate()) {
-                                  AlertBottom().hideKeyboard();
-                                  context.read<LoginBloc>().add(LoginEventClick(
-                                      nis: nisText.text,
-                                      password: sandiText.text));
-                                  btnMasuk.reset();
-                                } else {
-                                  btnMasuk.reset();
-                                }
-                              },
-                              color: Pallete.tertiaryColor,
-                              child: Text(
-                                'MASUK',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline6!
-                                    .copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: Pallete.tertiaryDarkColor),
-                              ),
-                            );
-                          },
-                        ),
+                      BlocBuilder<CekimagepointBloc, CekimagepointState>(
+                        builder: (context, state) {
+                          return Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.w),
+                              child: BlocBuilder<LoginBloc, LoginState>(
+                                builder: (context, state) {
+                                  return RoundedLoadingButton(
+                                    controller: btnMasuk,
+                                    onPressed: () {
+                                      if (loginKey.currentState!.validate()) {
+                                        AlertBottom().hideKeyboard();
+                                        context.read<LoginBloc>().add(
+                                            LoginEventClick(
+                                                nis: nisText.text,
+                                                password: sandiText.text));
+
+                                        btnMasuk.reset();
+                                      } else {
+                                        btnMasuk.reset();
+                                      }
+                                    },
+                                    color: Pallete.tertiaryColor,
+                                    child: Text(
+                                      'MASUK',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6!
+                                          .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: Pallete.tertiaryDarkColor),
+                                    ),
+                                  );
+                                },
+                              ));
+                        },
                       ),
                     ],
                   ),

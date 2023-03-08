@@ -9,4 +9,5 @@ class ApiURL {
   static const String jadwal = '/auth/jadwal';
   static const String pengumuman = '/auth/pengumuman';
   static const String siswaDetails = '/auth/detailsiswa';
+  static const String cekImagePoint = '/auth/cekimagepoint';
 }

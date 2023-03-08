@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "354701286567",
+    "project_id": "test-8f649",
+    "storage_bucket": "test-8f649.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354701286567:android:2455bdf5e2fbbd8da34f82",
+        "android_client_info": {
+          "package_name": "com.example.faceken"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354701286567-bmju470ihuji9rumo227khjc7vejvm4s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUuPEZMfCZkqRhrIfa_gLE41-pGOeExR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354701286567-bmju470ihuji9rumo227khjc7vejvm4s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

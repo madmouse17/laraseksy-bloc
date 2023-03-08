@@ -5,7 +5,9 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:laraseksy_bloc/ImagePoint/bloc/cekimagepoint_bloc.dart';
 import 'package:laraseksy_bloc/Login/Models/loginModels.dart';
 import 'package:laraseksy_bloc/Login/Provider/loginProvider.dart';
 import 'package:laraseksy_bloc/routes/routes.dart';
@@ -22,9 +24,10 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitial()) {
-    LoginProvider loginProvider = LoginProvider();
+    // LoginProvider loginProvider = LoginProvider();
     on<LoginEventClick>((event, emit) async {
       emit(Loading());
+      // CekimagepointBloc? cekimagepointBloc;
       try {
         await ApiRequest(
                 url: ApiURL.login,
@@ -37,13 +40,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             await ApiRequest.getToken();
           });
           // print(value.toString());
+
           emit(
             Success(
               loginModels: loginData,
             ),
           );
+          // NavigationService.navigatorKey.currentState!
+          //     .popAndPushNamed(Routes.home);
           NavigationService.navigatorKey.currentState!
-              .popAndPushNamed(Routes.home);
+              .popAndPushNamed(Routes.cekimagepoint);
         });
       } on DioError catch (e) {
         AlertBottom().onErrorAlertDioDefault(error: e);
