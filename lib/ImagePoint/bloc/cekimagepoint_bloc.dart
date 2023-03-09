@@ -37,8 +37,8 @@ class CekimagepointBloc extends Bloc<CekimagepointEvent, CekimagepointState> {
       } on DioError catch (e) {
         AlertBottom().onErrorAlertDioDefault(error: e);
         emit(ErrorImagePoint());
-        // NavigationService.navigatorKey.currentState!
-        //     .popAndPushNamed(Routes.cekimagepoint);
+        NavigationService.navigatorKey.currentState!
+            .popAndPushNamed(Routes.cekimagepoint);
       }
     });
   }

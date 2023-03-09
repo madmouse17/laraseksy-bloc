@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:laraseksy_bloc/routes/Pages.dart';
 import 'package:laraseksy_bloc/utils/Pallet.dart';
@@ -5,7 +6,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:laraseksy_bloc/utils/navigatorKey.dart';
 import 'package:sizer/sizer.dart';
 
-void main() {
+List<CameraDescription>? cameras;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  cameras = await availableCameras();
+
   runApp(const MyApp());
 }
 

@@ -103,7 +103,11 @@ class BoxLogin extends StatelessWidget {
                                             LoginEventClick(
                                                 nis: nisText.text,
                                                 password: sandiText.text));
-
+                                        if (state is Success) {
+                                          context
+                                              .read<CekimagepointBloc>()
+                                              .add(CekimagepointEvent());
+                                        }
                                         btnMasuk.reset();
                                       } else {
                                         btnMasuk.reset();
