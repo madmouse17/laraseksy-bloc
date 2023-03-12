@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:laraseksy_bloc/Home/bloc/cardHomeProfilebloc/card_home_profile_bloc.dart';
@@ -65,11 +66,19 @@ class _CardHomeProfileState extends State<CardHomeProfile> {
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 1.5.w, vertical: 1.5.h),
-                          child: CircleAvatar(
-                            radius: 15.h,
-                            child: Image.asset(
-                              ImageName.imageLoginSeek,
-                              height: 40.h,
+                          child: ClipOval(
+                            clipBehavior: Clip.antiAlias,
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  state.siswaDetailModels.data.siswa.image,
+                              height: 15.h,
+                              width: 15.h,
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) =>
+                                      CircularProgressIndicator(
+                                          value: downloadProgress.progress),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
                             ),
                           ),
                         ),

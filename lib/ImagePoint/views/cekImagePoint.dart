@@ -227,27 +227,12 @@ class _CekImagePointState extends State<CekImagePoint> {
     );
   }
 
-  void _toggleCameraDirection() async {
-    if (_direction == CameraLensDirection.back) {
-      _direction = CameraLensDirection.front;
-    } else {
-      _direction = CameraLensDirection.back;
-    }
-    await _camera!.stopImageStream();
-    await _camera!.dispose();
-    _faceDetector.close();
-
-    setState(() {
-      _camera = null;
-    });
-
-    _initializeCamera();
-  }
-
   @override
-  void dispose() {
+  void dispose() async {
     // TODO: implement dispose
     super.dispose();
+    await _camera!.stopImageStream();
+    await _camera!.dispose();
     _faceDetector.close();
   }
 

@@ -128,21 +128,25 @@ class Siswa {
   Siswa({
     required this.id,
     required this.nama,
+    required this.image,
     required this.kelas,
   });
 
   String id;
   String nama;
+  String image;
   Kelas kelas;
 
   factory Siswa.fromJson(Map<String, dynamic> json) => Siswa(
         id: json["id"],
         nama: json["nama"],
+        image: json["image"],
         kelas: Kelas.fromJson(json["kelas"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "image": image,
         "nama": nama,
         "kelas": kelas.toJson(),
       };
