@@ -4,10 +4,11 @@ class ApiURL {
   // static const String baseAuthURL = '$baseURL/auth';
   //guest
   static const String login = '$baseURL/login';
-
   //auth
-  static const String jadwal = '/auth/jadwal';
-  static const String pengumuman = '/auth/pengumuman';
-  static const String siswaDetails = '/auth/detailsiswa';
-  static const String cekImagePoint = '/auth/cekimagepoint';
+  static const String auth = '$baseURL/auth';
+  static const String jadwal = '$auth/jadwal';
+  static const String pengumuman = '$auth/pengumuman';
+  static const String siswaDetails = '$auth/detailsiswa';
+  static const String cekImagePoint = '$auth/cekimagepoint';
+  static const String saveImagePoint = '$auth/saveimagepoint';
 }

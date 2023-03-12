@@ -11,4 +11,9 @@ class LoadedImagePoint extends CekimagepointInitial {}
 
 class LoadingImagePoint extends CekimagepointInitial {}
 
-class ErrorImagePoint extends CekimagepointInitial {}
+class ErrorImagePoint extends CekimagepointInitial {
+  ErrorModels error;
+  ErrorImagePoint({required this.error});
+  @override
+  List<Object> get props => [error];
+}

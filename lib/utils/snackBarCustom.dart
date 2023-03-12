@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:laraseksy_bloc/Models/errorModels.dart';
+import 'package:laraseksy_bloc/Models/succesModels.dart';
 import 'package:laraseksy_bloc/routes/routes.dart';
 import 'package:laraseksy_bloc/utils/Pallet.dart';
 import 'package:laraseksy_bloc/utils/navigatorKey.dart';
@@ -23,6 +24,25 @@ class AlertBottom {
       ),
     ));
     NavigationService.navigatorKey.currentState!.popAndPushNamed(Routes.login);
+  }
+
+  snackBarSuccessAlert({required message}) {
+    SuccessModels success = successModelsFromJson(message);
+
+    ScaffoldMessenger.of(NavigationService.navigatorKey.currentContext!)
+        .showSnackBar(SnackBar(
+      content: Text(success.message,
+          style: const TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold)),
+      backgroundColor: Pallete.primaryColor,
+      action: SnackBarAction(
+        label: success.title,
+        textColor: Colors.white,
+        onPressed: () {
+          NavigationService.navigatorKey.currentState!.pop();
+        },
+      ),
+    ));
   }
 
   snackBarAlertNoData({required message}) {

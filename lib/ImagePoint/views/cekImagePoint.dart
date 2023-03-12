@@ -3,20 +3,20 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_ml_vision/google_ml_vision.dart';
-import 'package:laraseksy_bloc/ImagePoint/bloc/cekimagepoint_bloc.dart';
+import 'package:laraseksy_bloc/ImagePoint/bloc/cekimagepointbloc/cekimagepoint_bloc.dart';
+import 'package:laraseksy_bloc/ImagePoint/bloc/saveimagepointbloc/saveimagepointbloc_bloc.dart';
 import 'package:laraseksy_bloc/ImagePoint/imageFace/detector_painters.dart';
 import 'package:laraseksy_bloc/ImagePoint/imageFace/utils.dart';
 import 'package:laraseksy_bloc/utils/Pallet.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sizer/sizer.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as imglib;
 import 'package:quiver/collection.dart';
-import 'package:flutter/foundation.dart' as fo;
 
 class CekImagePoint extends StatefulWidget {
   const CekImagePoint({super.key});
@@ -26,15 +26,15 @@ class CekImagePoint extends StatefulWidget {
 }
 
 class _CekImagePointState extends State<CekImagePoint> {
-  // BuildContext? _context;
+  BuildContext? _context;
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   _context!.read<CekimagepointBloc>().add(
-    //         CekimagepointEvent(),
-    //       );
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _context!.read<CekimagepointBloc>().add(
+            CekimagepointEvent(),
+          );
+    });
 
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -112,7 +112,7 @@ class _CekImagePointState extends State<CekImagePoint> {
             imglib.Image convertedImage =
                 _convertCameraImage(image, _direction);
             for (_face in result) {
-              var ef = _face.leftEyeOpenProbability! < 2.0;
+              // var ef = _face.leftEyeOpenProbability! < 2.0;
 
               double x, y, w, h;
               x = (_face.boundingBox.left - 10);
@@ -199,9 +199,30 @@ class _CekImagePointState extends State<CekImagePoint> {
               //     ],
               //   ),
               //       CameraPreview(_camera!),
-              : Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ClipOval(child: CameraPreview(_camera!)),
+              : BlocBuilder<CekimagepointBloc, CekimagepointState>(
+                  builder: (context, state) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if (state is ErrorImagePoint) ...[
+                          Padding(
+                            padding: EdgeInsets.only(top: 10.h),
+                            child: Text(
+                              state.error.errors.failed[0],
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .copyWith(color: Pallete.redColor),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ClipOval(child: CameraPreview(_camera!)),
+                          ),
+                        ]
+                      ],
+                    );
+                  },
                 )),
     );
   }
@@ -232,24 +253,30 @@ class _CekImagePointState extends State<CekImagePoint> {
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return Scaffold(
       body: SafeArea(child: _buildImage()),
       floatingActionButton:
           Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-        FloatingActionButton(
-          backgroundColor:
-              (_faceFound) ? Pallete.primaryColor : Colors.blueGrey,
-          onPressed: () async {
-            if (_faceFound) {
-              // data['Kandy_software'] = e1;
-              jsonFile!.writeAsStringSync(json.encode(data));
-              log('data : $jsonFile');
-
-              _initializeCamera();
-            }
+        BlocBuilder<SaveimagepointblocBloc, SaveimagepointblocState>(
+          builder: (context, state) {
+            return FloatingActionButton(
+              backgroundColor:
+                  (_faceFound) ? Pallete.primaryColor : Colors.blueGrey,
+              onPressed: () async {
+                if (_faceFound) {
+                  // data['Kandy_software'] = e1;
+                  jsonFile!.writeAsStringSync(json.encode(data));
+                  log('data : ${json.encode(data)}');
+                  context.read<SaveimagepointblocBloc>().add(
+                      SaveimagepointblocEvent(imagePoint: json.encode(data)));
+                  _initializeCamera();
+                }
+              },
+              heroTag: null,
+              child: const Icon(Icons.camera),
+            );
           },
-          heroTag: null,
-          child: const Icon(Icons.camera),
         ),
         const SizedBox(
           height: 10,

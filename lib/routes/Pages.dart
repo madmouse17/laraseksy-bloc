@@ -5,7 +5,8 @@ import 'package:laraseksy_bloc/Home/bloc/datebloc/date_bloc.dart';
 import 'package:laraseksy_bloc/Home/bloc/homebloc/home_bloc.dart';
 import 'package:laraseksy_bloc/Home/bloc/sliderbloc/slider_bloc.dart';
 import 'package:laraseksy_bloc/Home/views/home.dart';
-import 'package:laraseksy_bloc/ImagePoint/bloc/cekimagepoint_bloc.dart';
+import 'package:laraseksy_bloc/ImagePoint/bloc/cekimagepointbloc/cekimagepoint_bloc.dart';
+import 'package:laraseksy_bloc/ImagePoint/bloc/saveimagepointbloc/saveimagepointbloc_bloc.dart';
 import 'package:laraseksy_bloc/ImagePoint/views/cekImagePoint.dart';
 import 'package:laraseksy_bloc/Login/bloc/loginbloc/login_bloc.dart';
 import 'package:laraseksy_bloc/Login/bloc/sandivisiblebloc/sandivisible_bloc.dart';
@@ -23,6 +24,9 @@ class Pages {
               providers: [
                 BlocProvider(
                   create: (context) => CekimagepointBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => SaveimagepointblocBloc(),
                 ),
                 BlocProvider(
                   create: (context) => SandivisibleBloc(),
@@ -65,6 +69,9 @@ class Pages {
               providers: [
                 BlocProvider(
                   create: (context) => CekimagepointBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => SaveimagepointblocBloc(),
                 ),
               ],
               child: const CekImagePoint(),

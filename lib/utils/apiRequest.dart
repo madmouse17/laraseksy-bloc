@@ -30,7 +30,8 @@ class ApiRequest {
     log(accessToken ?? 'kosong');
   }
 
-  ApiRequest({required this.url, this.dataQuery, this.token, this.parameter});
+  ApiRequest(
+      {required this.url, this.dataQuery, this.token, this.parameter = ''});
 
   Dio _dio() {
     // Put your authorization token here

@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
+import 'package:laraseksy_bloc/Models/errorModels.dart';
 import 'package:laraseksy_bloc/routes/routes.dart';
 import 'package:laraseksy_bloc/secureStorage/hiveSecure.dart';
 import 'package:laraseksy_bloc/secureStorage/keyStorage.dart';
@@ -35,10 +36,9 @@ class CekimagepointBloc extends Bloc<CekimagepointEvent, CekimagepointState> {
               .popAndPushNamed(Routes.home);
         });
       } on DioError catch (e) {
+        ErrorModels error = errorModelsFromJson(e.response.toString());
+        emit(ErrorImagePoint(error: error));
         AlertBottom().onErrorAlertDioDefault(error: e);
-        emit(ErrorImagePoint());
-        NavigationService.navigatorKey.currentState!
-            .popAndPushNamed(Routes.cekimagepoint);
       }
     });
   }
